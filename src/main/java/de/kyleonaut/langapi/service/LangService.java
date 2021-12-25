@@ -24,7 +24,7 @@ public class LangService {
     private final LangRepository langRepository;
     private final IpRepository ipRepository;
 
-    public String getCountryCode(Player player){
+    public String getCountryCode(Player player) {
         return ipRepository.getIpData(Objects.requireNonNull(player.getAddress()).getHostName()).getCountryCode();
     }
 
