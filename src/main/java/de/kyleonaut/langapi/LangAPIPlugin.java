@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import de.kyleonaut.langapi.database.DataBase;
+import de.kyleonaut.langapi.repository.LangRepository;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +21,9 @@ public class LangAPIPlugin extends JavaPlugin {
     @Inject
     private DataBase dataBase;
 
+    @Inject
+    private LangRepository langRepository;
+
     @Override
     public void onEnable() {
         final LangAPIModule module = new LangAPIModule(this);
@@ -28,6 +32,8 @@ public class LangAPIPlugin extends JavaPlugin {
         saveDefaultConfig();
 
         dataBase.connect();
+
+        langRepository.init();
     }
 
     @Override
