@@ -1,0 +1,4 @@
+name: LangAPI
+main: de.kyleonaut.langapi.LangAPIPlugin
+version: 1.0.0
+author: kyleonaut
