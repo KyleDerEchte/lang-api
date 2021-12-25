@@ -7,6 +7,7 @@ import de.kyleonaut.langapi.entity.LangEntity;
 import de.kyleonaut.langapi.entity.Translation;
 import de.kyleonaut.langapi.service.LangService;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -23,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LangAPI {
     private final LangService langService;
     private final Map<Player, String> countryCodes = new ConcurrentHashMap<>();
+    private final LangAPIPlugin plugin;
 
     /**
      * Get an Instance of this class to access the API functionalities
@@ -31,6 +33,20 @@ public class LangAPI {
      */
     public static LangAPI instance() {
         return LangAPIPlugin.getPlugin(LangAPIPlugin.class).getInjector().getInstance(LangAPI.class);
+    }
+
+    /**
+     * Sends a message to the player
+     */
+    public void sendMessage(Player player, String prefix, String key) {
+        getTranslation(player, key).whenComplete((translation, throwable) -> {
+            if (translation == null) {
+                return;
+            }
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                player.sendMessage(prefix, translation.getContent());
+            });
+        });
     }
 
     /**
