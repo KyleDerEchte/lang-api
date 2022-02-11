@@ -30,7 +30,7 @@ public class DataBase implements IDataBase {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection(url, user, password);
-            Bukkit.getLogger().log(Level.INFO, "[GGSilvester] Established SQL connection.");
+            Bukkit.getLogger().log(Level.INFO, "[LangApI] Established SQL connection.");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
